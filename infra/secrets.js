@@ -15,6 +15,3 @@ async function accessSecret() {
 }
 
 accessSecret().catch('teste erro secret');
-
-
-
