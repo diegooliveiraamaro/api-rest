@@ -1,5 +1,5 @@
 import express from 'express'
-import conexao from '../infra/conexao.js'
+import conexao from './app/database/conexao.js'
 
 const app = express()
 
@@ -14,18 +14,7 @@ function buscarIndexSelecao(id) {
 }
 
 //ROTAS
-app.get('/selecoes', (req, res) => {
-  // res.status(200).send(selecoes)
-  const sql = "SELECT * FROM bdcopa.selecoes"
-  conexao.query(sql, (erro, resultado) => {
-
-    if (erro) {
-      res.status(400).json({ 'erro': erro })
-    } else {
-      res.status(200).json(resultado)
-    }
-  })
-})
+app.get('/selecoes', )
 
 app.get('/selecoes/:id', (req, res) => {
   //res.json(buscarSelecaoPorId(req.params.id))
