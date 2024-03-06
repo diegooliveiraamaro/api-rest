@@ -1,29 +1,17 @@
 import conexao from '../database/conexao.js'
+import SelecaoRepository from '../repositories/SelecaoRepository.js'
+
 class SelecaoController {
 
-  index(req, res) {
-    const sql = "SELECT * FROM bdcopa.selecoes"
-    conexao.query(sql, (erro, resultado) => {
-
-      if (erro) {
-        res.status(404).json({ 'erro': erro })
-      } else {
-        res.status(200).json(resultado)
-      }
-    })
+  async index(req, res) {
+   const row = await SelecaoRepository.findAll()
+   res.json(row)
   }
 
-  show(req, res) {    
-    const id = req.params.id
-    const sql = "SELECT * FROM bdcopa.selecoes where id=?"
-    conexao.query(sql, id, (erro, resultado) => {
-      const linha = resultado[0]
-      if (erro) {
-        res.status(404).json({ 'erro': erro })
-      } else {
-        res.status(200).json(linha)
-      }
-    })
+  async show(req, res) {    
+    const id =req.params.id
+    const row = await SelecaoRepository.findById(id)
+    res.json(row)
   }
 
   store(req, res) {    
