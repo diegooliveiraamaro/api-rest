@@ -14,42 +14,25 @@ class SelecaoController {
     res.json(row)
   }
 
-  store(req, res) {    
+  async store(req, res) {    
     const selecao = req.body
-    const sql = "insert into selecoes set ?"
-    conexao.query(sql, selecao, (erro, resultado) => {
-
-      if (erro) {
-        res.status(400).json({ 'erro': erro })
-      } else {
-        res.status(201).json(resultado)
-      }
-    })
+    const row = await SelecaoRepository.create(selecao)
+    res.json(row)
   }
-  update(req, res) {   
+
+
+  async update(req, res) {   
     const id = req.params.id
     const selecao = req.body
-    const sql = "update selecoes set ? where id=?"
-    conexao.query(sql, [selecao, id], (erro, resultado) => {
-
-      if (erro) {
-        res.status(400).json({ 'erro': erro })
-      } else {
-        res.status(200).json(resultado)
-      }
-    })
+    const row = await SelecaoRepository.update(selecao,id)
+    res.json(row)
   }
-  delete(req, res) {
-    const id = req.params.id
-    const sql = "delete from selecoes where id=?"
-    conexao.query(sql, id, (erro, resultado) => {
 
-      if (erro) {
-        res.status(400).json({ 'erro': erro })
-      } else {
-        res.status(200).json(resultado)
-      }
-    })
+
+  async delete(req, res) {
+    const id = req.params.id
+    const row = await SelecaoRepository.delete(id)
+    res.json(row)
   }
 }
 
